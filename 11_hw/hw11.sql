@@ -15,21 +15,21 @@ CREATE TABLE `logs` (
 DROP TRIGGER IF EXISTS logs_fill;
 
 DELIMITER //
-CREATE TRIGGER users_logs_fill BEFORE INSERT ON users 
+CREATE TRIGGER users_logs_fill AFTER INSERT ON users 
 FOR EACH ROW 
 BEGIN 
 	INSERT INTO logs (table_name, name_content, updated_at) VALUES ('users', (SELECT name FROM users ORDER BY ID DESC LIMIT 1), NOW());
 END//
 
 DELIMITER //
-CREATE TRIGGER catalogs_logs_fill BEFORE INSERT ON catalogs 
+CREATE TRIGGER catalogs_logs_fill AFTER INSERT ON catalogs 
 FOR EACH ROW 
 BEGIN 
 	INSERT INTO logs (table_name, name_content, updated_at) VALUES ('catalogs', (SELECT name FROM catalogs ORDER BY ID DESC LIMIT 1), NOW());
 END//
 
 DELIMITER //
-CREATE TRIGGER products_logs_fill BEFORE INSERT ON users 
+CREATE TRIGGER products_logs_fill AFTER INSERT ON users 
 FOR EACH ROW 
 BEGIN 
 	INSERT INTO logs (table_name, name_content, updated_at) VALUES ('products', (SELECT name FROM products ORDER BY ID DESC LIMIT 1), NOW());
